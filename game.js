@@ -2,8 +2,6 @@
 
 //TODO list:
 //Incorporate inheratance
-// validation
-//
 
 const prompt = require('prompt-sync')();
 const {User} = require('./accounts');
@@ -53,6 +51,11 @@ class Game {
                this.twoPlayerMode();
           } else if (numOfPlayers === '1'){
                this.singlePlayerMode();
+          }else if (numOfPlayers !== ('1' || '2')){
+               console.log('');
+               console.log('Must select either "1" or "2"');
+               console.log('');
+               this.chooseNumberOfPlayers();
           }
      }
      listGestureOptions(){
@@ -80,6 +83,11 @@ class Game {
                case '4':
                this.playerOne.picksSpock();
                break;
+               default:
+               console.log('')
+               console.log('Whoops! Try again, you need to enter a number between 0 and 4')
+               this.chooseGesture();
+               break;
                }
      }
      chooseGestureTwo(){
@@ -99,6 +107,11 @@ class Game {
                break;
                case '4':
                this.playerTwo.picksSpock();
+               break;
+               default:
+               console.log('')
+               console.log('Whoops! Try again, you need to enter a number between 0 and 4')
+               this.chooseGestureTwo();
                break;
                }     
                console.log('')
@@ -153,8 +166,10 @@ class Game {
           this.checkForWinner();
           }else if (gameCount >= 3){
                if (this.playerOne.score === this.playerTwo.score){
+                    console.log('')
                     console.log('Tie Game!')
                     console.log('Play again to settle the score')
+                    console.log('')
                     gameCount = 0;
                     this.playerOne.score = 0;
                     this.playerTwo.score = 0;
@@ -188,8 +203,10 @@ class Game {
           this.checkForWinnerSinglePlayer();
           }else if (gameCount >= 3){
                if (this.playerOne.score === this.AI.score){
+                    console.log('')
                     console.log('Tie Game!')
                     console.log('Play again to settle the score')
+                    console.log('')
                     gameCount = 0;
                     this.chooseGesture();
                     this.chooseGestureAI();
@@ -242,16 +259,7 @@ class Game {
                console.log('')
           }
      }
-     
-
 }
-
-
-
-
-
-
-
 
 module.exports.Game = Game;
 
