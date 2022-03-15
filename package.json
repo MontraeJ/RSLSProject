@@ -1,0 +1,21 @@
+{
+  "name": "rpsls",
+  "version": "1.0.0",
+  "description": "devCodeCamp week 3 RPSLS group project",
+  "main": "accounts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jleviharris/RPSLSproject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jleviharris/RPSLSproject/issues"
+  },
+  "homepage": "https://github.com/jleviharris/RPSLSproject#readme"
+}
