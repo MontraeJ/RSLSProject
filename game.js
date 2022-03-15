@@ -22,9 +22,9 @@ class Game {
      start(){
           this.intro();
           this.chooseNumberOfPlayers();
-          this.chooseGestureAI();
      }
-     intro(){   
+     intro(){  
+          console.log(''); 
           console.log('Welcome to Rock, Paper, Scissors, Lizard, Spock.');
           console.log('');
      }
@@ -100,6 +100,10 @@ class Game {
                this.playerTwo.picksSpock();
                break;
                }     
+               console.log('')
+               console.log(`${this.playerOne.name}'s choice was -> ${this.playerOne.choice}`)
+               console.log(`${this.playerTwo.name}'s choice was -> ${this.playerTwo.choice}`)
+               console.log('')
      }
      chooseGestureAI(){
           this.AI.choice = Math.floor(Math.random()*5)
@@ -120,6 +124,10 @@ class Game {
                this.AI.picksSpock();
                break;
                }
+               console.log('')
+               console.log(`${this.playerOne.name}'s choice was -> ${this.playerOne.choice}`)
+               console.log(`${this.AI.name}'s choice was -> ${this.AI.choice}`)
+               console.log('')
           }
      checkForWinner(){
           //need to account for ties
@@ -145,13 +153,48 @@ class Game {
           this.checkForWinner();
           }else if (gameCount >= 3){
                if (this.playerOne.score < this.playerTwo.score){
-                    console.log(`${this.playerTwo.name} Wins!`)
+                    console.log('')
+                    console.log(`${this.playerTwo.name} WINS!`)
+                    console.log('')
                } else if (this.playerOne.score > this.playerTwo.score){
-                    console.log(`${this.playerOne.name} Wins!`)
+                    console.log('')
+                    console.log(`${this.playerOne.name} WINS!`)
+                    console.log('')
                }
           }
      } 
+     checkForWinnerSinglePlayer(){
+           //need to account for ties
+           if ((this.playerOne.choice === choices[0]) && (this.AI.choice === choices[2] || this.AI.choice === choices[3])){
+               this.playerOne.score++;
+          } else if ((this.playerOne.choice === choices[1]) && (this.AI.choice === choices[0] || this.AI.choice === choices[4])){
+               this.playerOne.score++;
+          } else if ((this.playerOne.choice === choices[2]) && (this.AI.choice === choices[1] || this.AI.choice === choices[3])){
+               this.playerOne.score++;
+          } else if ((this.playerOne.choice === choices[3]) && (this.AI.choice === choices[4] || this.AI.choice === choices[1])){
+               this.playerOne.score++;
+          } else if ((this.playerOne.choice === choices[4]) && (this.AI.choice === choices[2] || this.AI.choice === choices[0])){
+               this.playerOne.score++;
+          } else if(this.playerOne.choice === this.AI.choice){
+               this.playerOne.score++;
+               this.AI.score++;
+          } else {this.AI.score++;}
+          this.displayScoresSinglePlayer();
+          gameCount++;
+          if (gameCount <3){
+          this.chooseGesture();
+          this.chooseGestureAI();
+          this.checkForWinnerSinglePlayer();
+          }else if (gameCount >= 3){
+               if (this.playerOne.score < this.AI.score){
+                    console.log(` Sorry ${this.AI.name} Wins`)
+               } else if (this.playerOne.score > this.AI.score){
+                    console.log(`${this.playerOne.name} Wins!`)
+               }
+          }
+     }
      twoPlayerMode(){
+          console.log('Two Player mode selected')
           this.instructions();
           this.listGestureOptions();
           this.chooseGesture();
@@ -159,12 +202,12 @@ class Game {
           this.checkForWinner();
      }
      singlePlayerMode(){
+          console.log('Single Player mode selected')
           this.instructions();
           this.listGestureOptions();
           this.chooseGesture();
           this.chooseGestureAI();
-          // need to rework to account for the checkForWinner only works for two player mode 
-          this.checkForWinner();
+          this.checkForWinnerSinglePlayer();
      }
      displayScoresSinglePlayer(){
           console.log(`${this.playerOne.name}'s score -> ${this.playerOne.score}`);
