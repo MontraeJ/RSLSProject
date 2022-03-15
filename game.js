@@ -1,12 +1,13 @@
 "use strict"
 
+//TODO list:
+//Incorporate inheratance
+// validation
+//
+
 const prompt = require('prompt-sync')();
 const {User} = require('./accounts');
 const {choices} = require('./accounts');
-// created AI user using mat.floor.random to pick randomly between the choices
-// create a function for the user to pick between the choices
-// create a function that compares the two choices
-// keep score
 let numOfPlayers;
 let playerOne;
 let playerTwo;
@@ -130,7 +131,6 @@ class Game {
                console.log('')
           }
      checkForWinner(){
-          //need to account for ties
           if ((this.playerOne.choice === choices[0]) && (this.playerTwo.choice === choices[2] || this.playerTwo.choice === choices[3])){
                this.playerOne.score++;
           } else if ((this.playerOne.choice === choices[1]) && (this.playerTwo.choice === choices[0] || this.playerTwo.choice === choices[4])){
@@ -152,19 +152,20 @@ class Game {
           this.chooseGestureTwo();
           this.checkForWinner();
           }else if (gameCount >= 3){
-               if (this.playerOne.score < this.playerTwo.score){
-                    console.log('')
-                    console.log(`${this.playerTwo.name} WINS!`)
-                    console.log('')
-               } else if (this.playerOne.score > this.playerTwo.score){
-                    console.log('')
-                    console.log(`${this.playerOne.name} WINS!`)
-                    console.log('')
+               if (this.playerOne.score === this.playerTwo.score){
+                    console.log('Tie Game!')
+                    console.log('Play again to settle the score')
+                    gameCount = 0;
+                    this.playerOne.score = 0;
+                    this.playerTwo.score = 0;
+                    this.chooseGesture();
+                    this.chooseGestureTwo();
+                    this.checkForWinner();
                }
+             
           }
      } 
      checkForWinnerSinglePlayer(){
-           //need to account for ties
            if ((this.playerOne.choice === choices[0]) && (this.AI.choice === choices[2] || this.AI.choice === choices[3])){
                this.playerOne.score++;
           } else if ((this.playerOne.choice === choices[1]) && (this.AI.choice === choices[0] || this.AI.choice === choices[4])){
@@ -186,11 +187,15 @@ class Game {
           this.chooseGestureAI();
           this.checkForWinnerSinglePlayer();
           }else if (gameCount >= 3){
-               if (this.playerOne.score < this.AI.score){
-                    console.log(` Sorry ${this.AI.name} Wins`)
-               } else if (this.playerOne.score > this.AI.score){
-                    console.log(`${this.playerOne.name} Wins!`)
+               if (this.playerOne.score === this.AI.score){
+                    console.log('Tie Game!')
+                    console.log('Play again to settle the score')
+                    gameCount = 0;
+                    this.chooseGesture();
+                    this.chooseGestureAI();
+                    this.checkForWinnerSinglePlayer();
                }
+               
           }
      }
      twoPlayerMode(){
@@ -200,6 +205,7 @@ class Game {
           this.chooseGesture();
           this.chooseGestureTwo();
           this.checkForWinner();
+          this.displayWinnerTP();
      }
      singlePlayerMode(){
           console.log('Single Player mode selected')
@@ -208,6 +214,7 @@ class Game {
           this.chooseGesture();
           this.chooseGestureAI();
           this.checkForWinnerSinglePlayer();
+          this.displayWinnerSP();
      }
      displayScoresSinglePlayer(){
           console.log(`${this.playerOne.name}'s score -> ${this.playerOne.score}`);
@@ -216,6 +223,24 @@ class Game {
      displayScoresTwoPlayers(){
           console.log(`${this.playerOne.name}'s score -> ${this.playerOne.score}`);
           console.log(`${this.playerTwo.name}'s score -> ${this.playerTwo.score}`);
+     }
+     displayWinnerSP(){
+          if (this.playerOne.score < this.AI.score){
+               console.log(` Sorry ${this.AI.name} WINS`)
+          } else if (this.playerOne.score > this.AI.score){
+               console.log(`${this.playerOne.name} WINS!`)
+          }
+     }
+     displayWinnerTP(){
+          if (this.playerOne.score < this.playerTwo.score){
+               console.log('')
+               console.log(`${this.playerTwo.name} WINS!`)
+               console.log('')
+          } else if (this.playerOne.score > this.playerTwo.score){
+               console.log('')
+               console.log(`${this.playerOne.name} WINS!`)
+               console.log('')
+          }
      }
      
 
