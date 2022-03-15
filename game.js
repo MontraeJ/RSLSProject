@@ -10,11 +10,13 @@ const {choices} = require('./accounts');
 let numOfPlayers;
 let playerOne;
 let playerTwo;
+let AI;
 class Game {
      
      constructor (){
           this.playerOne = new User(prompt("Please enter player one's name "));   
           this.playerTwo = new User (prompt("Please enter player two's name "));
+          this.AI = new User('AI');
      }
      start(){
           this.intro();
@@ -23,8 +25,10 @@ class Game {
           this.listGestureOptions();
           this.chooseGesture();
           this.chooseGestureTwo();
+          this.chooseGestureAI();
           console.log(this.playerOne);
           console.log(this.playerTwo);
+          console.log(this.AI);
      }
      intro(){   
           console.log('Welcome to Rock, Paper, Scissors, Lizard, Spock.');
@@ -62,19 +66,19 @@ class Game {
           this.playerOne.choice = prompt(`Enter ${this.playerOne.name}'s choice here `)
           switch (this.playerOne.choice){
                case '0':
-               this.playerOne.choice ='rock';
+               this.playerOne.picksRock();
                break;
                case '1':
-               this.playerOne.choice ='paper';
+               this.playerOne.picksPaper();
                break;
                case '2':
-               this.playerOne.choice ='sciccors';
+               this.playerOne.picksScissors();
                break;
                case '3':
-               this.playerOne.choice ='lizard';
+               this.playerOne.picksLizard();
                break;
                case '4':
-               this.playerOne.choice ='spock';
+               this.playerOne.picksSpock();
                break;
                }
      }
@@ -82,21 +86,44 @@ class Game {
           this.playerTwo.choice = prompt(`Enter ${this.playerTwo.name}'s choice here `)
           switch (this.playerTwo.choice){
                case '0':
-               this.playerTwo.choice ='rock';
+               this.playerTwo.picksRock();
                break;
                case '1':
-               this.playerTwo.choice ='paper';
+               this.playerTwo.picksPaper();
                break;
                case '2':
-               this.playerTwo.choice ='sciccors';
+               this.playerTwo.picksScissors();
                break;
                case '3':
-               this.playerTwo.choice ='lizard';
+               this.playerTwo.picksLizard();
                break;
                case '4':
-               this.playerTwo.choice ='spock';
+               this.playerTwo.picksSpock();
+               break;
+               }     
+     }
+     chooseGestureAI(){
+          this.AI.choice = Math.floor(Math.random()*5)
+          switch (this.AI.choice){
+               case 1:
+               this.AI.picksRock();
+               break;
+               case 2:
+               this.AI.picksPaper();
+               break;
+               case 3:
+               this.AI.picksScissors();
+               break;
+               case 4:
+               this.AI.picksLizard();
+               break;
+               case 5:
+               this.AI.picksSpock();
                break;
                }
+          }
+     checkForWinner(){
+
      }
 
      // Use to pick between AI and human for player two
