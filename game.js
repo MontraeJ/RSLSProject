@@ -13,26 +13,24 @@ let playerTwo;
 class Game {
      
      constructor (){
-          if (numOfPlayers = 1){
-          this.playerOne = new User(prompt("Please enter player one's name "))
-          }
-          // else if (numOfPlayers =2){
-          // this.playerOne = new User(prompt("Please enter player one's name "))     
-          // this.playerTwo = new User (prompt("Please enter player two's name "))}
+          this.playerOne = new User(prompt("Please enter player one's name "));   
+          this.playerTwo = new User (prompt("Please enter player two's name "));
      }
-     gameStart(){
+     start(){
           this.intro();
           this.chooseNumberOfPlayers();
           this.instructions();
           this.listGestureOptions();
           this.chooseGesture();
-          console.log(playerOne);
+          this.chooseGestureTwo();
+          console.log(this.playerOne);
+          console.log(this.playerTwo);
      }
      intro(){   
           console.log('Welcome to Rock, Paper, Scissors, Lizard, Spock.');
-          console.log('');}
-     
-          instructions (){
+          console.log('');
+     }
+     instructions(){
           console.log(''); 
           console.log('Good Luck!');  
           console.log('The Best of 3 games wins');
@@ -61,20 +59,51 @@ class Game {
           console.log('Choose 4 for SPOCK');
      }
      chooseGesture(){
-          let userChoice = prompt('Enter choice here') 
-          switch (userChoice){
-               case 0:
-               this.picksRock();
+          this.playerOne.choice = prompt(`Enter ${this.playerOne.name}'s choice here `)
+          switch (this.playerOne.choice){
+               case '0':
+               this.playerOne.choice ='rock';
                break;
-          }
-          
+               case '1':
+               this.playerOne.choice ='paper';
+               break;
+               case '2':
+               this.playerOne.choice ='sciccors';
+               break;
+               case '3':
+               this.playerOne.choice ='lizard';
+               break;
+               case '4':
+               this.playerOne.choice ='spock';
+               break;
+               }
+     }
+     chooseGestureTwo(){
+          this.playerTwo.choice = prompt(`Enter ${this.playerTwo.name}'s choice here `)
+          switch (this.playerTwo.choice){
+               case '0':
+               this.playerTwo.choice ='rock';
+               break;
+               case '1':
+               this.playerTwo.choice ='paper';
+               break;
+               case '2':
+               this.playerTwo.choice ='sciccors';
+               break;
+               case '3':
+               this.playerTwo.choice ='lizard';
+               break;
+               case '4':
+               this.playerTwo.choice ='spock';
+               break;
+               }
      }
 
      // Use to pick between AI and human for player two
      // pickPlayers (){ 
      // }
 
-}
+} 
 
 
 

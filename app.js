@@ -4,4 +4,4 @@ const {Game} = require('./game');
 const prompt = require('prompt-sync')();
 
 let game = new Game();
-game.gameStart();
+game.start();
