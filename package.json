@@ -5,7 +5,7 @@
   "main": "accounts.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/jleviharris/RPSLSproject/issues"
   },
-  "homepage": "https://github.com/jleviharris/RPSLSproject#readme"
+  "homepage": "https://github.com/jleviharris/RPSLSproject#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
 }

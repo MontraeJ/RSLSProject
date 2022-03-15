@@ -1,25 +1,26 @@
 "use strict"
 // keeps the different users
+const prompt = require('prompt-sync')();
 
-class user {
-   constructor(name, choice){
+class User {
+   constructor(name){
        this.name = name;
-       this.choice = choice;
+       this.choice = null;
    }
    picksRock(){
-       this.choice = rock;
+       this.choice = 'rock';
    }
    picksPaper(){
-       this.choice = paper;
+       this.choice = 'paper';
    }
    picksScissors(){
-       this.choice = scissors;
+       this.choice = 'scissors';
    }
    picksLizard(){
-       this.choice = lizard;
+       this.choice = 'lizard';
    }
    picksSpock(){
-       this.choice = spock;
+       this.choice = 'spock';
    }
 };
 
@@ -30,5 +31,5 @@ let choices = [
     'rock', 'paper', 'scissors', 'lizard', 'spock'
 ]
 
-module.exports.user = user;
+module.exports.User = User;
 module.exports.choices = choices;
