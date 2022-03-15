@@ -6,6 +6,7 @@ class User {
    constructor(name){
        this.name = name;
        this.choice = null;
+       this.score = 0;
    }
    picksRock(){
        this.choice = 'rock';

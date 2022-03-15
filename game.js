@@ -11,6 +11,7 @@ let numOfPlayers;
 let playerOne;
 let playerTwo;
 let AI;
+let gameCount = 0;
 class Game {
      
      constructor (){
@@ -29,6 +30,7 @@ class Game {
           console.log(this.playerOne);
           console.log(this.playerTwo);
           console.log(this.AI);
+          this.checkForWinner();
      }
      intro(){   
           console.log('Welcome to Rock, Paper, Scissors, Lizard, Spock.');
@@ -63,7 +65,7 @@ class Game {
           console.log('Choose 4 for SPOCK');
      }
      chooseGesture(){
-          this.playerOne.choice = prompt(`Enter ${this.playerOne.name}'s choice here `)
+          this.playerOne.choice = prompt(`Enter ${this.playerOne.name}'s choice here -> `)
           switch (this.playerOne.choice){
                case '0':
                this.playerOne.picksRock();
@@ -83,7 +85,7 @@ class Game {
                }
      }
      chooseGestureTwo(){
-          this.playerTwo.choice = prompt(`Enter ${this.playerTwo.name}'s choice here `)
+          this.playerTwo.choice = prompt(`Enter ${this.playerTwo.name}'s choice here -> `)
           switch (this.playerTwo.choice){
                case '0':
                this.playerTwo.picksRock();
@@ -105,32 +107,55 @@ class Game {
      chooseGestureAI(){
           this.AI.choice = Math.floor(Math.random()*5)
           switch (this.AI.choice){
-               case 1:
+               case 0:
                this.AI.picksRock();
                break;
-               case 2:
+               case 1:
                this.AI.picksPaper();
                break;
-               case 3:
+               case 2:
                this.AI.picksScissors();
                break;
-               case 4:
+               case 3:
                this.AI.picksLizard();
                break;
-               case 5:
+               case 4:
                this.AI.picksSpock();
                break;
                }
           }
      checkForWinner(){
-
-     }
-
+          if ((this.playerOne.choice === choices[0]) && (this.playerTwo.choice === choices[2] || this.playerTwo.choice === choices[3])){
+               this.playerOne.score++;
+          } else if ((this.playerOne.choice === choices[1]) && (this.playerTwo.choice === choices[0] || this.playerTwo.choice === choices[4])){
+               this.playerOne.score++;
+          } else if ((this.playerOne.choice === choices[2]) && (this.playerTwo.choice === choices[1] || this.playerTwo.choice === choices[3])){
+               this.playerOne.score++;
+          } else if ((this.playerOne.choice === choices[3]) && (this.playerTwo.choice === choices[4] || this.playerTwo.choice === choices[1])){
+               this.playerOne.score++;
+          } else if ((this.playerOne.choice === choices[4]) && (this.playerTwo.choice === choices[2] || this.playerTwo.choice === choices[0])){
+               this.playerOne.score++;
+          } else {this.playerTwo.score++;}
+          console.log(`${this.playerOne.name}'s score -> ${this.playerOne.score}`);
+          console.log(`${this.playerTwo.name}'s score -> ${this.playerTwo.score}`);
+          gameCount++;
+          if (gameCount <3){
+          this.chooseGesture();
+          this.chooseGestureTwo();
+          this.checkForWinner();
+          }else if (gameCount >= 3){
+               if (this.playerOne.score < this.playerTwo.score){
+                    console.log(`${this.playerTwo.name} Wins!`)
+               } else if (this.playerOne.score > this.playerTwo.score){
+                    console.log(`${this.playerOne.name} Wins!`)
+               }
+           }
+     
      // Use to pick between AI and human for player two
      // pickPlayers (){ 
      // }
 
-} 
+     } }
 
 
 
