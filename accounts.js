@@ -24,3 +24,11 @@ class user {
 };
 
 
+
+
+let choices = [
+    'rock', 'paper', 'scissors', 'lizard', 'spock'
+]
+
+module.exports.user = user;
+module.exports.choices = choices;

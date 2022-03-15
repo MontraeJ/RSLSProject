@@ -5,3 +5,5 @@
 // create a function that compares the two choices
 // keep score
 
+const {user} = require('./accounts');
+const {choices} = require('./accounts');
