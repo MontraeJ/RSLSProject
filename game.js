@@ -22,15 +22,7 @@ class Game {
      start(){
           this.intro();
           this.chooseNumberOfPlayers();
-          this.instructions();
-          this.listGestureOptions();
-          this.chooseGesture();
-          this.chooseGestureTwo();
           this.chooseGestureAI();
-          console.log(this.playerOne);
-          console.log(this.playerTwo);
-          console.log(this.AI);
-          this.checkForWinner();
      }
      intro(){   
           console.log('Welcome to Rock, Paper, Scissors, Lizard, Spock.');
@@ -55,7 +47,12 @@ class Game {
           console.log('');
      }
      chooseNumberOfPlayers(){
-          numOfPlayers = prompt('How many people are playing?');
+          numOfPlayers = prompt('How many people are playing? 1 or 2?');
+          if (numOfPlayers === '2'){
+               this.twoPlayerMode();
+          } else if (numOfPlayers === '1'){
+               this.singlePlayerMode();
+          }
      }
      listGestureOptions(){
           console.log('Choose 0 for ROCK');
@@ -125,6 +122,7 @@ class Game {
                }
           }
      checkForWinner(){
+          //need to account for ties
           if ((this.playerOne.choice === choices[0]) && (this.playerTwo.choice === choices[2] || this.playerTwo.choice === choices[3])){
                this.playerOne.score++;
           } else if ((this.playerOne.choice === choices[1]) && (this.playerTwo.choice === choices[0] || this.playerTwo.choice === choices[4])){
@@ -135,9 +133,11 @@ class Game {
                this.playerOne.score++;
           } else if ((this.playerOne.choice === choices[4]) && (this.playerTwo.choice === choices[2] || this.playerTwo.choice === choices[0])){
                this.playerOne.score++;
+          } else if(this.playerOne.choice === this.playerTwo.choice){
+               this.playerOne.score++;
+               this.playerTwo.score++;
           } else {this.playerTwo.score++;}
-          console.log(`${this.playerOne.name}'s score -> ${this.playerOne.score}`);
-          console.log(`${this.playerTwo.name}'s score -> ${this.playerTwo.score}`);
+          this.displayScoresTwoPlayers();
           gameCount++;
           if (gameCount <3){
           this.chooseGesture();
@@ -149,13 +149,34 @@ class Game {
                } else if (this.playerOne.score > this.playerTwo.score){
                     console.log(`${this.playerOne.name} Wins!`)
                }
-           }
+          }
+     } 
+     twoPlayerMode(){
+          this.instructions();
+          this.listGestureOptions();
+          this.chooseGesture();
+          this.chooseGestureTwo();
+          this.checkForWinner();
+     }
+     singlePlayerMode(){
+          this.instructions();
+          this.listGestureOptions();
+          this.chooseGesture();
+          this.chooseGestureAI();
+          // need to rework to account for the checkForWinner only works for two player mode 
+          this.checkForWinner();
+     }
+     displayScoresSinglePlayer(){
+          console.log(`${this.playerOne.name}'s score -> ${this.playerOne.score}`);
+          console.log(`${this.AI.name}'s score -> ${this.AI.score}`); 
+     }
+     displayScoresTwoPlayers(){
+          console.log(`${this.playerOne.name}'s score -> ${this.playerOne.score}`);
+          console.log(`${this.playerTwo.name}'s score -> ${this.playerTwo.score}`);
+     }
      
-     // Use to pick between AI and human for player two
-     // pickPlayers (){ 
-     // }
 
-     } }
+}
 
 
 
