@@ -1,29 +1,26 @@
 "use strict"
-// keeps the different users
 const prompt = require('prompt-sync')();
-
 class User {
    constructor(){
        this.choice = null;
        this.score = 0;
    }
    picksRock(){
-       this.choice = 'rock';
+       this.choice = choices[0];
    }
    picksPaper(){
-       this.choice = 'paper';
+       this.choice = choices[1];
    }
    picksScissors(){
-       this.choice = 'scissors';
+       this.choice = choices[2];
    }
    picksLizard(){
-       this.choice = 'lizard';
+       this.choice = choices[3];
    }
    picksSpock(){
-       this.choice = 'spock';
+       this.choice = choices[4];
    }
 };
-
 class Human extends User {
     constructor(name){
         super();
@@ -82,14 +79,9 @@ class AI extends User {
              break;
              }}
 }
-
-
-
-
 let choices = [
     'rock', 'paper', 'scissors', 'lizard', 'spock'
 ]
-
 module.exports.User = User;
 module.exports.choices = choices;
 module.exports.Human = Human;

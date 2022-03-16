@@ -1,12 +1,9 @@
 "use strict"
 const prompt = require('prompt-sync')();
-const {User} = require('./accounts');
 const {Human} = require('./accounts');
 const {AI} = require('./accounts');
 const {choices} = require('./accounts');
-
-class Game {
-     
+class Game {  
      constructor (){
           this.numOfPlayers = null;
           this.playerOne = null;
@@ -28,9 +25,7 @@ class Game {
           console.log('Welcome to Rock, Paper, Scissors, Lizard, Spock.');
           console.log('');
      }
-     instructions(){
-          console.log(''); 
-          console.log('Good Luck!');  
+     instructions(){  
           console.log('The Best of 3 games wins');
           console.log('');
           console.log('Rules');
@@ -47,10 +42,9 @@ class Game {
           console.log('');
      }
      chooseNumberOfPlayers(){
-          this.numOfPlayers = prompt('How many people are playing? 1 or 2?');
-          if (this.numOfPlayers === '2'){
-               this.settingPlayers();
-          } else if (this.numOfPlayers === '1'){
+          console.log('How many people are playing?');
+          this.numOfPlayers = prompt('Use the number keys to select either "1" or "2" ');
+          if (this.numOfPlayers === '2' || this.numOfPlayers === '1') {
                this.settingPlayers();
           }else if (this.numOfPlayers !== ('1' || '2')){
                console.log('');
@@ -103,13 +97,17 @@ class Game {
      } 
      settingPlayers(){
           if (this.numOfPlayers === '2'){
+               console.log('Two Player mode selected');
                this.playerOne = new Human(prompt("Please enter player one's name ")); 
                this.playerTwo = new Human(prompt("Please enter player two's name "));
-               console.log('Two Player mode selected');
+               console.log(''); 
+               console.log('Good Luck!');  
           } else if (this.numOfPlayers === '1'){
+               console.log('Single Player mode selected');
                this.playerOne = new Human(prompt("Please enter player one's name "));
-               this.playerTwo = new AI('AI');
-               console.log('Single Player mode selected')
+               console.log(''); 
+               console.log(`Good Luck ${this.playerOne.name}!`);
+               this.playerTwo = new AI('AI');  
           } 
      }
      displayScores(){
