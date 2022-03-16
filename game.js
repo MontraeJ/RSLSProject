@@ -14,8 +14,6 @@ let gameCount = 0;
 class Game {
      
      constructor (){
-          this.playerOne = new User(prompt("Please enter player one's name "));   
-          this.playerTwo = new User (prompt("Please enter player two's name "));
           this.AI = new User('AI');
      }
      start(){
@@ -216,7 +214,9 @@ class Game {
           }
      }
      twoPlayerMode(){
-          console.log('Two Player mode selected')
+          console.log('Two Player mode selected');
+          this.playerOne = new User(prompt("Please enter player one's name ")); 
+          this.playerTwo = new User (prompt("Please enter player two's name "));
           this.instructions();
           this.listGestureOptions();
           this.chooseGesture();
@@ -226,6 +226,8 @@ class Game {
      }
      singlePlayerMode(){
           console.log('Single Player mode selected')
+          
+          this.playerOne = new User(prompt("Please enter player one's name ")); 
           this.instructions();
           this.listGestureOptions();
           this.chooseGesture();
