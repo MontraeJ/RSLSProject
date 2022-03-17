@@ -6,21 +6,21 @@ class User {
        this.score = 0;
    }
    picksRock(){
-       this.choice = choices[0];
+       this.choice = new Rock();
    }
    picksPaper(){
-       this.choice = choices[1];
+       this.choice = new Paper();
    }
    picksScissors(){
-       this.choice = choices[2];
+       this.choice = new Scissors();
    }
    picksLizard(){
-       this.choice = choices[3];
+       this.choice = new Lizard();
    }
    picksSpock(){
-       this.choice = choices[4];
+       this.choice = new Spock();
    }
-};
+}
 class Human extends User {
     constructor(name){
         super();
@@ -82,7 +82,48 @@ class AI extends User {
 let choices = [
     'rock', 'paper', 'scissors', 'lizard', 'spock'
 ]
-module.exports.User = User;
-module.exports.choices = choices;
+class Gesture {
+    constructor(){
+        this.name = '';
+        this.defeats;
+    }
+}
+class Rock extends Gesture{
+    constructor(){
+        super();
+        this.name = choices[0];
+        this.defeats = [choices[2], choices[3]];
+    }
+}
+class Paper extends Gesture{
+    constructor(){
+        super();
+        this.name = choices[1];
+        this.defeats = [choices[0], choices[4]];
+    }
+}
+class Scissors extends Gesture{
+    constructor(){
+        super();
+        this.name = choices[2];
+        this.defeats = [choices[1], choices[3]];
+    }
+}
+class Lizard extends Gesture{
+    constructor(){
+        super();
+        this.name = choices[3];
+        this.defeats = [choices[4], choices[1]];
+    }
+}
+class Spock extends Gesture{
+    constructor(){
+        super();
+        this.name = choices[4];
+        this.defeats = [choices[2], choices[0]];
+    }
+}
 module.exports.Human = Human;
 module.exports.AI = AI;
+
+

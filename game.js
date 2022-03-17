@@ -2,13 +2,13 @@
 const prompt = require('prompt-sync')();
 const {Human} = require('./accounts');
 const {AI} = require('./accounts');
-const {choices} = require('./accounts');
 class Game {  
      constructor (){
           this.numOfPlayers = null;
           this.playerOne = null;
           this.playerTwo = null;
           this.gameCount = 1;
+          this.victory;
      }
      start(){
           this.intro();
@@ -24,6 +24,33 @@ class Game {
           console.log(''); 
           console.log('Welcome to Rock, Paper, Scissors, Lizard, Spock.');
           console.log('');
+     }
+     chooseNumberOfPlayers(){
+          console.log('How many people are playing?');
+          this.numOfPlayers = prompt('Use the number keys to select either "1" or "2" ');
+          if (this.numOfPlayers === '2' || this.numOfPlayers === '1') {
+               this.settingPlayers();
+          }else if (this.numOfPlayers !== ('1' || '2')){
+               console.log('');
+               console.log('Must select either "1" or "2"');
+               console.log('');
+               this.chooseNumberOfPlayers();
+          }
+     }
+     settingPlayers(){
+          if (this.numOfPlayers === '2'){
+               console.log('Two Player mode selected');
+               this.playerOne = new Human(prompt("Please enter player one's name ")); 
+               this.playerTwo = new Human(prompt("Please enter player two's name "));
+               console.log(''); 
+               console.log('Good Luck!');  
+          } else if (this.numOfPlayers === '1'){
+               console.log('Single Player mode selected');
+               this.playerOne = new Human(prompt("Please enter player one's name "));
+               console.log(''); 
+               console.log(`Good Luck ${this.playerOne.name}!`);
+               this.playerTwo = new AI('AI');  
+          } 
      }
      instructions(){  
           console.log('The Best of 3 games wins');
@@ -41,37 +68,17 @@ class Game {
           console.log('Rock crushes Scissors');
           console.log('');
      }
-     chooseNumberOfPlayers(){
-          console.log('How many people are playing?');
-          this.numOfPlayers = prompt('Use the number keys to select either "1" or "2" ');
-          if (this.numOfPlayers === '2' || this.numOfPlayers === '1') {
-               this.settingPlayers();
-          }else if (this.numOfPlayers !== ('1' || '2')){
-               console.log('');
-               console.log('Must select either "1" or "2"');
-               console.log('');
-               this.chooseNumberOfPlayers();
-          }
-     }
      listGestureOptions(){
           console.log('Choose 0 for ROCK');
           console.log('Choose 1 for PAPER');
           console.log('Choose 2 for SCISSORS');
           console.log('Choose 3 for LIZARD');
           console.log('Choose 4 for SPOCK');
-     }
+     } 
      checkForWinner(){
-          if ((this.playerOne.choice === choices[0]) && (this.playerTwo.choice === choices[2] || this.playerTwo.choice === choices[3])){
-               this.playerOne.score++;
-          } else if ((this.playerOne.choice === choices[1]) && (this.playerTwo.choice === choices[0] || this.playerTwo.choice === choices[4])){
-               this.playerOne.score++;
-          } else if ((this.playerOne.choice === choices[2]) && (this.playerTwo.choice === choices[1] || this.playerTwo.choice === choices[3])){
-               this.playerOne.score++;
-          } else if ((this.playerOne.choice === choices[3]) && (this.playerTwo.choice === choices[4] || this.playerTwo.choice === choices[1])){
-               this.playerOne.score++;
-          } else if ((this.playerOne.choice === choices[4]) && (this.playerTwo.choice === choices[2] || this.playerTwo.choice === choices[0])){
-               this.playerOne.score++;
-          } else if(this.playerOne.choice === this.playerTwo.choice){
+          this.victory = this.playerOne.choice.defeats.includes(this.playerTwo.choice.name);
+          if (this.victory){this.playerOne.score++;
+          } else if(this.playerOne.choice.name === this.playerTwo.choice.name){
           } else {this.playerTwo.score++;}
           this.displayPlayerSelections();
           this.displayScores();
@@ -95,20 +102,11 @@ class Game {
                }      
           }
      } 
-     settingPlayers(){
-          if (this.numOfPlayers === '2'){
-               console.log('Two Player mode selected');
-               this.playerOne = new Human(prompt("Please enter player one's name ")); 
-               this.playerTwo = new Human(prompt("Please enter player two's name "));
-               console.log(''); 
-               console.log('Good Luck!');  
-          } else if (this.numOfPlayers === '1'){
-               console.log('Single Player mode selected');
-               this.playerOne = new Human(prompt("Please enter player one's name "));
-               console.log(''); 
-               console.log(`Good Luck ${this.playerOne.name}!`);
-               this.playerTwo = new AI('AI');  
-          } 
+     displayPlayerSelections(){
+          console.log('')
+          console.log(`${this.playerOne.name}'s choice was -> ${this.playerOne.choice.name}`)
+          console.log(`${this.playerTwo.name}'s choice was -> ${this.playerTwo.choice.name}`)
+          console.log('')
      }
      displayScores(){
           console.log(`${this.playerOne.name}'s score -> ${this.playerOne.score}`);
@@ -124,12 +122,6 @@ class Game {
                console.log(`${this.playerOne.name} WINS!`)
                console.log('')
           }
-     }
-     displayPlayerSelections(){
-          console.log('')
-          console.log(`${this.playerOne.name}'s choice was -> ${this.playerOne.choice}`)
-          console.log(`${this.playerTwo.name}'s choice was -> ${this.playerTwo.choice}`)
-          console.log('')
      }
 }
 module.exports.Game = Game;
